@@ -1,0 +1,6 @@
+{
+    "PORT": 80,
+    "MONGO_URI": "mongodb://localhost/navdoors",
+    "JWT_SECRET": "6622332Sa",
+    "base_url": "http://185.154.13.191"
+}
