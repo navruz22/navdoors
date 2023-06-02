@@ -20,8 +20,6 @@ const Sale = () => {
     const [glasscounts, setGlassCounts] = useState([])
 
     const [order, setOrder] = useState({
-        door_type: {},
-        client: {},
         doors: [
             {}
         ]
@@ -63,7 +61,9 @@ const Sale = () => {
 
     //=============================================================
     //=============================================================
-  
+
+    console.log(order);
+   
     //=============================================================
     //=============================================================
 
@@ -99,7 +99,7 @@ const Sale = () => {
                 <div>
                     <Select
                         label={'Eshik turi'}
-                        value={order?.door_type?.name}
+                        value={order?.door_type}
                         options={doortypes}
                         onChange={value => setOrder({ ...order, door_type: value })}
                     />
@@ -113,7 +113,7 @@ const Sale = () => {
                             class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected></option>
                             {clients.map((client, key) =>
-                                <option key={key} value={client}>{client?.fullname}</option>
+                                <option key={key} value={client?._id}>{client?.fullname}</option>
                             )}
                         </select>
                     </div>
@@ -161,7 +161,7 @@ const Sale = () => {
                                     name: "P"
                                 }
                             ]}
-                            onChange={value => changeDoorDetail(value?._id, key, 'l_p')}
+                            onChange={value => changeDoorDetail(value, key, 'l_p')}
                         />
                         <Select
                             value={door?.depth}
@@ -173,13 +173,13 @@ const Sale = () => {
                             label={key < 1 && "Kar. razmer"}
                             type='number'
                             value={door?.box_size}
-                            onChange={value => onChangeNumber(value, key, 'box_size')}
+                            onChange={value => changeDoorDetail(+value, key, 'box_size')}
                         />
                         <Input
                             label={key < 1 && "Dev. razmer"}
                             type='number'
-                            value={door?.box_size}
-                            onChange={value => onChangeNumber(value, key, 'wall_depth')}
+                            value={door?.wall_size}
+                            onChange={value => changeDoorDetail(+value, key, 'wall_size')}
                         />
                         <Select
                             value={door?.dobor}
@@ -209,7 +209,7 @@ const Sale = () => {
                             onChange={value => changeDoorDetail(value, key, 'porog')}
                         />
                         <Select
-                            value={door?.ornament_type_history}
+                            value={door?.ornament_type}
                             label={key < 1 && "Naqsh shakli"}
                             options={[
                                 {
@@ -217,9 +217,9 @@ const Sale = () => {
                                     name: "Gluxoy"
                                 }
                                 , ...ornamentTypes]}
-                            onChange={value => changeDoorDetail(value, key, 'ornament_type_history')}
+                            onChange={value => changeDoorDetail(value, key, 'ornament_type')}
                         />
-                        {door?.ornament_type_history &&
+                        {door?.ornament_type &&
                             <Select
                                 value={door?.glasscount}
                                 label={key < 1 && "Der. soni"}
