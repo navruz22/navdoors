@@ -152,7 +152,12 @@ const DoorType = () => {
                                 Narxi
                                 </th>
                                 <th scope="col" class="px-6 py-3 font-bold">
-
+                                Dobor narxi
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                Dobor narxi
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
                                 </th>
                             </tr>
                             </thead>

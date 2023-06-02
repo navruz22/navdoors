@@ -27,6 +27,7 @@ const Sale = () => {
         deadline: "",
         contract_price: "",
         prepayment: "",
+        wall_depth: "",
         doors: [
             {
                 width: '',
@@ -164,26 +165,26 @@ const Sale = () => {
                 {order.doors.map((door, key) =>
                     <div className='flex gap-2'>
                         <Input
-                            label="Bo'yi"
+                            label={key < 1 && "Bo'yi"}
                             type='number'
                             value={door?.height}
                             onChange={value => onChangeNumber(value, key, 'height')}
                         />
                         <Input
-                            label="Eni"
+                            label={key < 1 && "Eni"}
                             type='number'
                             value={door?.width}
                             onChange={value => onChangeNumber(value, key, 'width')}
                         />
                         <Input
-                            label="Soni"
+                            label={key < 1 && "Soni"}
                             type='number'
                             value={door?.count}
                             onChange={value => onChangeNumber(value, key, 'count')}
                         />
                         <Select
                             value={order?.l_p}
-                            label="L-P"
+                            label={key < 1 && "L-P"}
                             options={[
                                 {
                                     id: 'l',
@@ -198,31 +199,37 @@ const Sale = () => {
                         />
                         <Select
                             value={door?.depth}
-                            label="Kar. qalinligi"
+                            label={key < 1 && "Kar. qalinligi"}
                             options={depthes}
                             onChange={value => changeDoorDetail(value, key, 'depth')}
                         />
                         <Input
-                            label="Kar. razmer"
+                            label={key < 1 && "Kar. razmer"}
                             type='number'
                             value={door?.box_size}
                             onChange={value => onChangeNumber(value, key, 'box_size')}
                         />
+                        <Input
+                            label={key < 1 && "Dev. razmer"}
+                            type='number'
+                            value={door?.box_size}
+                            onChange={value => onChangeNumber(value, key, 'wall_depth')}
+                        />
                         <Select
                             value={door?.dobor}
-                            label="Dobor"
+                            label={key < 1 && "Dobor"}
                             options={dobors}
                             onChange={value => changeDoorDetail(value, key, 'dobor')}
                         />
                         <Select
                             value={door?.layer}
-                            label="Tabaqaligi"
+                            label={key < 1 && "Tabaqaligi"}
                             options={layers}
                             onChange={value => changeDoorDetail(value, key, 'layer')}
                         />
                         <Select
                             value={door?.porog}
-                            label="Porog"
+                            label={key < 1 && "Porog"}
                             options={[
                                 {
                                     id: "bez",
@@ -237,42 +244,42 @@ const Sale = () => {
                         />
                         <Select
                             value={door?.ornament_type_history_id}
-                            label="Naqsh shakli"
+                            label={key < 1 && "Naqsh shakli"}
                             options={ornamentTypes}
                             onChange={value => changeDoorDetail(value, key, 'ornament_type_history_id')}
                         />
                         <Select
                             value={door?.lock}
-                            label="Zamok"
+                            label={key < 1 && "Zamok"}
                             options={locks}
                             onChange={value => changeDoorDetail(value, key, 'lock')}
                         />
                         <Select
                             value={door?.framog_type_history_id}
-                            label="Fr. turi"
+                            label={key < 1 && "Fr. turi"}
                             options={framogTypes}
                             onChange={value => changeDoorDetail(value, key, 'framog_type_history_id')}
                         />
                         <Select
                             value={door?.framog_figure_history_id}
-                            label="Fr. shakli"
+                            label={key < 1 && "Fr. shakli"}
                             options={framogFigures}
                             onChange={value => changeDoorDetail(value, key, 'framog_figure_history_id')}
                         />
                         <Select
                             value={door?.jumb}
-                            label="Nalichnik"
+                            label={key < 1 && "Nalichnik"}
                             options={jumbs}
                             onChange={value => changeDoorDetail(value, key, 'jumb')}
                         />
                         <Input
-                            label="Naqsh modeli"
+                            label={key < 1 && "Naqsh modeli"}
                             type='text'
                             value={door?.ornament_model}
                             onChange={value => changeDoorDetail(value, key, 'ornament_model')}
                         />
                         <Input
-                            label="Eshik rangi"
+                            label={key < 1 && "Eshik rangi"}
                             type='text'
                             value={door?.color}
                             onChange={value => changeDoorDetail(value, key, 'color')}
