@@ -4,9 +4,9 @@ const DoborService = require("../../services/details/DoborService");
 module.exports = class Dobor {
     static async create(req, res, next) {
         try {
-            const {name, price} = req.body;
+            const {name} = req.body;
 
-            const dobor = await DoborService.create({name, price})
+            const dobor = await DoborService.create({name})
 
             res.status(200).json(dobor)
         } catch (error) {

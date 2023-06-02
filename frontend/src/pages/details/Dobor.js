@@ -4,20 +4,20 @@ import Button from '../../components/Buttons/Button'
 import Api from "../../config/Api"
 import DetailTable from '../../components/Tables/DetailTable'
 import Modal from '../../components/Modals/Modal'
+import { FaEdit } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 
 const Dobor = () => {
 
     const [data, setData] = useState({
-        name: "",
-        price: ""
+        name: ""
     })
 
     const [modal, setModal] = useState(false)
 
     const clearData = () => {
         setData({
-            name: "",
-            price: ""
+            name: ""
         })
     }
 
@@ -62,7 +62,7 @@ const Dobor = () => {
 
 
     const checkData = () => {
-        if (data?.name && data.price) {
+        if (data?.name) {
             if (data?._id) {
                 return updateHandler()
             } else {
@@ -105,27 +105,48 @@ const Dobor = () => {
                             onChange={value => setData({ ...data, name: value })}
                             required={true}
                         />
-                        <Input
-                            label="Narxi"
-                            type={'number'}
-                            value={data?.price}
-                            onChange={value => setData({ ...data, price: +value === 0 ? '' : +value })}
-                            required={true}
-                        />
                         <div className='self-end'>
                             <Button title={'Saqlash'} type={'primary'} onClick={checkData} />
                         </div>
                     </div>
                 </div>
                 <div className='mt-4 px-4'>
-                    <DetailTable
-                        datas={datas}
-                        Edit={e => setData(e)}
-                        Delete={e => {
-                            setData(e)
-                            setModal(true)
-                        }}
-                    />
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                №
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                Nomi
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {datas.map((data, key) =>
+                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={key}>
+                                <th scope="row" class="text-[16px] px-6 py-1 font-medium">
+                                    {key + 1}
+                                </th>
+                                <th class="text-[16px] px-6 py-1 font-medium">
+                                    {data?.name}
+                                </th>
+                                <td class="px-6 py-1 flex justify-center gap-2">
+                                    <button><FaEdit className='text-yellow-400' onClick={() => setData(data)} size={26}/></button>
+                                    <button><MdDelete className='text-red-700' onClick={() => {
+                                        setModal(true)
+                                        setData(data)
+                                    }} size={28}/></button>
+                                </td>
+                                </tr>
+                            )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <Modal isOpen={modal} handler={deleteHandler} closeModal={() => setModal(false)} />

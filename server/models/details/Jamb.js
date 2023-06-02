@@ -3,7 +3,6 @@ const { Schema, model, Joi } = require("../../packages");
 const jamb = new Schema(
   {
     name: {type: String, required: true},
-    price: {type: Number, required: true},
     date: {type: Date, default: Date.now()},
     isArchive: { type: Boolean, default: false },
   }
@@ -11,8 +10,7 @@ const jamb = new Schema(
 
 function validateJamb(jamb) {
   const schema = Joi.object({
-    name: Joi.number().required(),
-    price: Joi.number().required(),
+    name: Joi.number().required()
   });
 
   return schema.validate(jamb);

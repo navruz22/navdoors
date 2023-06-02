@@ -4,9 +4,9 @@ const JambService = require("../../services/details/JambService");
 module.exports = class Jamb {
     static async create(req, res, next) {
         try {
-            const {name, price} = req.body;
+            const {name} = req.body;
 
-            const jamb = await JambService.create({name, price})
+            const jamb = await JambService.create({name})
 
             res.status(200).json(jamb)
         } catch (error) {

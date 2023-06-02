@@ -4,12 +4,16 @@ import Button from '../../components/Buttons/Button'
 import Api from "../../config/Api"
 import DetailTable from '../../components/Tables/DetailTable'
 import Modal from '../../components/Modals/Modal'
+import { FaEdit } from 'react-icons/fa'
+import { MdDelete } from 'react-icons/md'
 
 const DoorType = () => {
 
     const [data, setData] = useState({
         name: "",
-        price: ""
+        price: "",
+        dobor_price: "",
+        jamb_price: ""
     })
 
     const [modal, setModal] = useState(false)
@@ -17,7 +21,9 @@ const DoorType = () => {
     const clearData = () => {
         setData({
             name: "",
-            price: ""
+            price: "",
+            dobor_price: "",
+            jamb_price: ""
         })
     }
 
@@ -62,7 +68,7 @@ const DoorType = () => {
 
 
     const checkData = () => {
-        if (data?.name && data.price) {
+        if (data?.name && data.price && data.dobor_price && data.jamb_price) {
             if (data?._id) {
                 return updateHandler()
             } else {
@@ -97,7 +103,7 @@ const DoorType = () => {
                     <div>
                         <h1 className='text-[32px] font-bold text-center'>Eshik turi</h1>
                     </div>
-                    <div className='mt-4 grid grid-cols-3 gap-4 ml-[150px]'>
+                    <div className='mt-4 grid grid-cols-5 gap-4 ml-[150px]'>
                         <Input
                             label="Eshik turi"
                             type={'text'}
@@ -112,20 +118,74 @@ const DoorType = () => {
                             onChange={value => setData({ ...data, price: +value === 0 ? '' : +value })}
                             required={true}
                         />
+                        <Input
+                            label="Dobor narxi"
+                            type={'number'}
+                            value={data?.dobor_price}
+                            onChange={value => setData({ ...data, dobor_price: +value === 0 ? '' : +value })}
+                            required={true}
+                        />
+                        <Input
+                            label="Nalichnik narxi"
+                            type={'number'}
+                            value={data?.jamb_price}
+                            onChange={value => setData({ ...data, jamb_price: +value === 0 ? '' : +value })}
+                            required={true}
+                        />
                         <div className='self-end'>
                             <Button title={'Saqlash'} type={'primary'} onClick={checkData} />
                         </div>
                     </div>
                 </div>
                 <div className='mt-4 px-4'>
-                    <DetailTable
-                        datas={datas}
-                        Edit={e => setData(e)}
-                        Delete={e => {
-                            setData(e)
-                            setModal(true)
-                        }}
-                    />
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                №
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                Nomi
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+                                Narxi
+                                </th>
+                                <th scope="col" class="px-6 py-3 font-bold">
+
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {datas.map((data, key) =>
+                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={key}>
+                                    <th scope="row" class="text-[16px] px-6 py-1 font-medium">
+                                        {key + 1}
+                                    </th>
+                                    <th class="text-[16px] px-6 py-1 font-medium">
+                                        {data?.name}
+                                    </th>
+                                    <td class="text-[16px] px-6 py-1 font-medium">
+                                        {data?.price}
+                                    </td>
+                                    <th class="text-[16px] px-6 py-1 font-medium">
+                                        {data?.dobor_price}
+                                    </th>
+                                    <td class="text-[16px] px-6 py-1 font-medium">
+                                        {data?.jamb_price}
+                                    </td>
+                                    <td class="px-6 py-1 flex justify-center gap-2">
+                                    <button><FaEdit className='text-yellow-400' onClick={() => setData(data)} size={26}/></button>
+                                    <button><MdDelete className='text-red-700' onClick={() => {
+                                        setData(data)
+                                        setModal(true)
+                                    }} size={28}/></button>
+                                    </td>
+                                </tr>
+                            )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <Modal isOpen={modal} handler={deleteHandler} closeModal={() => setModal(false)} />
