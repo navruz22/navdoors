@@ -13,4 +13,5 @@ module.exports.routers = (app) => {
   app.use('/api/lock', require('./details/lock.route'))
   app.use('/api/doortype', require('./details/doortype.route'))
   app.use('/api/client', require('./client.route'))
+  app.use('/api/glass_count', require('./details/glasscount.route'))
 };
