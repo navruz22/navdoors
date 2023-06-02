@@ -107,7 +107,7 @@ const Layer = () => {
                             label="Narxi"
                             type={'number'}
                             value={data?.price}
-                            onChange={value => setData({ ...data, price: +value === 0 ? '' : +value })}
+                            onChange={value => setData({ ...data, price: +value })}
                             required={true}
                         />
                         <div className='self-end'>

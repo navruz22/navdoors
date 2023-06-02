@@ -6,7 +6,7 @@ import Button from '../../components/Buttons/Button'
 import { FaCopy } from "react-icons/fa"
 
 const Sale = () => {
-
+    const withPrice = ['depth']
     const [depthes, setDepthes] = useState([])
     const [dobors, setDobors] = useState([])
     const [framogFigures, setFramogFigures] = useState([])
@@ -17,34 +17,13 @@ const Sale = () => {
     const [ornamentTypes, setOrnamentTypes] = useState([])
     const [doortypes, setDoortypes] = useState([])
     const [clients, setClients] = useState([])
+    const [glasscounts, setGlassCounts] = useState([])
 
     const [order, setOrder] = useState({
-        door_type_id: null,
-        fullname: "",
-        deal: "",
-        phone_number: "+998",
-        prepayment: "",
-        deadline: "",
-        contract_price: "",
-        prepayment: "",
-        wall_depth: "",
+        door_type: {},
+        client: {},
         doors: [
-            {
-                width: '',
-                height: '',
-                count: '',
-                l_p: null,
-                depth: null,
-                box_size: '',
-                dobor: null,
-                jumb: null,
-                layer: null,
-                doorstep: false,
-                ornament_type_history_id: null,
-                lock_history_id: null,
-                framog_type_history_id: null,
-                framog_figure_history_id: null,
-            }
+            {}
         ]
     })
 
@@ -59,21 +38,7 @@ const Sale = () => {
     }
 
     const addRow = () => {
-        const doors = [...order.doors, {
-            width: '',
-            height: '',
-            count: '',
-            l_p: null,
-            depth: null,
-            box_size: '',
-            dobor: null,
-            layer: null,
-            doorstep: false,
-            ornament_type_history_id: null,
-            lock_history_id: null,
-            framog_type_history_id: null,
-            framog_figure_history_id: null,
-        }]
+        const doors = [...order.doors, {}]
 
         const neworder = { ...order, doors: doors }
         setOrder(neworder)
@@ -98,7 +63,7 @@ const Sale = () => {
 
     //=============================================================
     //=============================================================
-
+  
     //=============================================================
     //=============================================================
 
@@ -122,6 +87,7 @@ const Sale = () => {
         getData('/framog_figure/get', setFramogFigures)
         getData('/jamb/get', setJumbs)
         getData('/client/get', setClients)
+        getData('/glass_count/get', setGlassCounts)
     }, [])
 
     return (
@@ -133,9 +99,9 @@ const Sale = () => {
                 <div>
                     <Select
                         label={'Eshik turi'}
-                        value={order?.door_type_id}
+                        value={order?.door_type?.name}
                         options={doortypes}
-                        onChange={value => setOrder({ ...order, door_type_id: value })}
+                        onChange={value => setOrder({ ...order, door_type: value })}
                     />
                 </div>
                 <div>
@@ -147,7 +113,7 @@ const Sale = () => {
                             class="bg-white-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected></option>
                             {clients.map((client, key) =>
-                                <option key={key} value={client?._id}>{client?.fullname}</option>
+                                <option key={key} value={client}>{client?.fullname}</option>
                             )}
                         </select>
                     </div>
@@ -168,34 +134,34 @@ const Sale = () => {
                             label={key < 1 && "Bo'yi"}
                             type='number'
                             value={door?.height}
-                            onChange={value => onChangeNumber(value, key, 'height')}
+                            onChange={value => changeDoorDetail(+value, key, 'height')}
                         />
                         <Input
                             label={key < 1 && "Eni"}
                             type='number'
                             value={door?.width}
-                            onChange={value => onChangeNumber(value, key, 'width')}
+                            onChange={value => changeDoorDetail(+value, key, 'width')}
                         />
                         <Input
                             label={key < 1 && "Soni"}
                             type='number'
                             value={door?.count}
-                            onChange={value => onChangeNumber(value, key, 'count')}
+                            onChange={value => changeDoorDetail(+value, key, 'count')}
                         />
                         <Select
                             value={order?.l_p}
                             label={key < 1 && "L-P"}
                             options={[
                                 {
-                                    id: 'l',
+                                    id: 'L',
                                     name: "L"
                                 },
                                 {
-                                    id: 'p',
+                                    id: 'P',
                                     name: "P"
                                 }
                             ]}
-                            onChange={value => changeDoorDetail(value, key, 'l_p')}
+                            onChange={value => changeDoorDetail(value?._id, key, 'l_p')}
                         />
                         <Select
                             value={door?.depth}
@@ -243,11 +209,24 @@ const Sale = () => {
                             onChange={value => changeDoorDetail(value, key, 'porog')}
                         />
                         <Select
-                            value={door?.ornament_type_history_id}
+                            value={door?.ornament_type_history}
                             label={key < 1 && "Naqsh shakli"}
-                            options={ornamentTypes}
-                            onChange={value => changeDoorDetail(value, key, 'ornament_type_history_id')}
+                            options={[
+                                {
+                                    _id: '',
+                                    name: "Gluxoy"
+                                }
+                                , ...ornamentTypes]}
+                            onChange={value => changeDoorDetail(value, key, 'ornament_type_history')}
                         />
+                        {door?.ornament_type_history &&
+                            <Select
+                                value={door?.glasscount}
+                                label={key < 1 && "Der. soni"}
+                                options={glasscounts}
+                                onChange={value => changeDoorDetail(value, key, 'glasscount')}
+                            />
+                        }
                         <Select
                             value={door?.lock}
                             label={key < 1 && "Zamok"}

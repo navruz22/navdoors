@@ -62,7 +62,7 @@ const OrnamentFigure = () => {
 
 
     const checkData = () => {
-        if (data?.name && data.price) {
+        if (data?.name) {
             if (data?._id) {
                 return updateHandler()
             } else {
@@ -109,7 +109,7 @@ const OrnamentFigure = () => {
                             label="Narxi"
                             type={'number'}
                             value={data?.price}
-                            onChange={value => setData({ ...data, price: +value === 0 ? '' : +value })}
+                            onChange={value => setData({ ...data, price: +value })}
                             required={true}
                         />
                         <div className='self-end'>
