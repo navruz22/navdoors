@@ -9,6 +9,7 @@ import Layer from "./pages/details/Layer";
 import Lock from "./pages/details/Lock";
 import OrnamentFigure from "./pages/details/OrnamentFigure";
 import Sale from "./pages/sellerPages/Sale";
+import GlassCount from "./pages/details/GlassCount";
 
 
 export const detailRoutes = [
@@ -47,6 +48,10 @@ export const detailRoutes = [
     {
         path: "/ornament_type",
         element: <OrnamentFigure/>
+    },
+    {
+        path: "/glass_count",
+        element: <GlassCount/>
     }
 ]
 
@@ -86,6 +91,10 @@ export const detailLinks = [
     {
         path: "/ornament_type",
         title: "Naqsh shakli"
+    },
+    {
+        path: "/glass_count",
+        title: "Deraza soni"
     }
 ]
 
