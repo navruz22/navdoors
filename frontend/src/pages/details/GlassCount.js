@@ -119,9 +119,6 @@ const GlassCount = () => {
               Nomi
             </th>
             <th scope="col" class="px-6 py-3 font-bold">
-              Narxi
-            </th>
-            <th scope="col" class="px-6 py-3 font-bold">
 
             </th>
           </tr>
@@ -135,9 +132,6 @@ const GlassCount = () => {
               <th class="text-[16px] px-6 py-1 font-medium">
                 {data?.name}
               </th>
-              <td class="text-[16px] px-6 py-1 font-medium">
-                {data?.price}
-              </td>
               <td class="px-6 py-1 flex justify-center gap-2">
                 <button><FaEdit className='text-yellow-400' onClick={() => setData(data)} size={26}/></button>
                 <button><MdDelete className='text-red-700' onClick={() => {
